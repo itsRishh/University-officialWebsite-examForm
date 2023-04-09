@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <header>
+
+    </header>
+    <div class="root">
+        <section class="main-form">
+            <form action="" method="post">
+                <div class="personal-details">
+                    <div class="pd-head">
+                        <p>Personal Details</p>
+                    </div>
+                    <div class="pd-details">
+                        <div class="u-name al">
+                            <div class="f-cont">
+                                <label for="name">Name</label>
+                                <input style="width: 29vw;" type="text" placeholder="Student full name">
+                            </div>
+
+                            <div class="f-cont">
+                                <label for="fname">Father's name</label>
+                                <input style="width: 29vw;" type="text" placeholder="Father's full name">
+                            </div>
+                        </div>
+
+                        <div class="u-p-ad al">
+                            <div class="f-cont">
+                                <label for="p-add">Permanent address</label>
+                                <input style="width: 41vw;" type="text" placeholder="If you are an outsider then enter your native address">
+                            </div>
+
+                            <div class="f-cont">
+                                <label for="p-mob">Phone No</label>
+                                <input type="number" placeholder="999-999-9999">
+                            </div>
+                        </div>
+
+                        <div class="u-l-ad al">
+                            <div class="f-cont">
+                                <label for="l-add">Local address</label>
+                                <input style="width: 41vw;" type="text" placeholder="Enter you current residential address"> 
+                            </div>
+
+                            <div class="f-cont">
+                                <label for="l-mob">Phone No</label>
+                                <input type="number" placeholder="999-999-9999">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div id="academic-details" class="personal-details">
+                    <div class="ac-details">
+                        <div class="col-1">
+                            <div style="margin-bottom: 5vh;"  class="f-cont">
+                                <label for="name">Programme</label>
+                                <select name="programmes" id="programmes">
+                                    <option value="" selected disabled>Select your programme</option>
+                                    <option value="mtech">M.Tech (dual degree) Artificial Intelligence and Data Science</option>
+                                    <option value="mca">M.Tech 2 years</option>
+                                    <option value="mba">M.B.A Business Analytics</option>
+                                    <option value="bda">M.Tech Big Data Analytics</option>
+                                </select>
+                            </div>
+
+                            <div class="col-1-in-2">
+                                <div class="dc">
+                                    <div class="f-cont">
+                                        <label for="fname">Roll No</label>
+                                        <input type="text" placeholder="DS6A2132">
+                                    </div>
+                                    
+                                    <div style="margin: 5vh 0;" class="f-cont">
+                                        <label for="p-mob">Year</label>
+                                        <input type="text" placeholder="ex: 2nd year">
+                                    </div>
+    
+                                    <div class="f-cont">
+                                        <label for="l-mob">Repeat/Semester Fees</label>
+                                        <input type="number" placeholder="Rs 35,000">
+                                    </div>
+                                </div>
+
+                                <div class="dc">
+                                    <div class="f-cont">
+                                        <label for="p-add">Enrollment No</label>
+                                        <input type="text" placeholder="DE2102056">
+                                    </div>
+                
+                                    <div style="margin: 5vh 0;" class="f-cont">
+                                        <label for="l-add">Month</label>
+                                        <input type="text" placeholder="Examination month"> 
+                                    </div>
+        
+                                    <div class="f-cont">
+                                        <label for="l-mob">Receipt No/Date</label>
+                                        <input type="date" placeholder="20-05-2023">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 20vw;" class="col-2">
+                            <div class="col-2-in">
+                                <div class="f-cont">
+                                    <label for="name">Semester</label>
+                                    <input type="text" placeholder="1st Semester">
+                                </div>
+        
+                                <div style="margin: 5vh 0;" class="f-cont">
+                                    <label for="fname">Student Photograpgh</label>
+                                    <input type="file">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ac-head">
+                        <p>Academic Details</p>
+                    </div>
+                </div>
+    
+                <div id="subjects" class="personal-details">
+                    <div class="pd-head">
+                        <p>Subjects</p>
+                    </div>
+                    <div class="pd-details">
+                        <div class="s-cont">
+                            <div class="s-1">
+                                <div class="f-cont">
+                                    <label for="">Subjects</label>
+                                    <input style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                </div>
+                            
+                                <div class="f-cont">
+                                    <label for="">Date of exam</label>
+                                    <input style="width: 19vw;" type="date">
+                                </div>
+                            </div>
+                            <div class="s-1">
+                                <input style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input style="width: 19vw;" type="date">
+                            </div>
+                            <div class="s-1">
+                                <input style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input style="width: 19vw;" type="date">
+                            </div>
+                            <div class="s-1">
+                                <input style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input style="width: 19vw;" type="date">
+                            </div>
+                            <div class="s-1">
+                                <input style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input style="width: 19vw;" type="date">
+                            </div>
+                            <div class="s-1">
+                                <input style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input style="width: 19vw;" type="date">
+                            </div>
+                            <div class="s-1">
+                                <input style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input style="width: 19vw;" type="date">
+                            </div>
+                            <div class="s-1">
+                                <input style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input style="width: 19vw;" type="date">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+    <footer>
+
+    </footer>
+</body>
+</html>

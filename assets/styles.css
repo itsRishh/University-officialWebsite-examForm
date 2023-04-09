@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+}
+
+.root {
+    padding: 0 6vw;
+}
+
+.personal-details {
+    display: flex;
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    margin-top: 5vh;
+}
+
+.pd-head {
+    font-size: 1.6em;
+    color: whitesmoke;
+    background-color: #1479D7;
+    border-radius: 1rem 0 0 1rem;
+    width: 20%;
+    padding: 4vh 0.7vw;
+    text-align: center;
+}
+
+.pd-details {
+    width: 80%;
+    border-radius:0 1rem 1rem 0;
+    border: 3px solid #1479D7;
+    padding: 4vh 4vw 5vh 2.5vw;
+}
+
+.al {
+    display: flex;
+    justify-content: space-between;
+}
+
+.u-p-ad {
+    margin: 5vh 0;
+}
+
+.f-cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+label {
+    font-size: 1.3em;
+}
+
+input {
+    font-size: 1.2em;
+    border: 0.1rem solid #1479D7;
+    border-radius: 0.375rem;
+    margin-top: 1.4vh;
+    font-family: 'Outfit', sans-serif;
+    padding: 1.5vh 0.75vw;
+    outline: none;
+    transition: 0.4s ease-in;
+}
+
+input::placeholder {
+    color: #BBBBBB;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+}
+
+
+/* academic details */
+
+select {
+    background: none;
+    border: 2px solid #1479D7;
+    padding: 1.5vh 0.75vw;
+    font-size: 1.2em;
+    margin-top: 1.4vh;
+    border-radius: 0.375rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+}
+
+option {
+    color: #252525;
+    font-family: 'Outfit', sans-serif;
+
+}
+
+.ac-details {
+    width: 80%;
+    border-radius:1rem 0 0 1rem;
+    border: 3px solid #1479D7;
+    padding: 4vh 4vw 5vh 2.5vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.col-1-in-2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 40vw;
+}
+
+.dc {
+    width: 19vw;
+}
+
+.ac-head {
+    font-size: 1.6em;
+    color: whitesmoke;
+    background-color: #1479D7;
+    border-radius: 0 1rem 1rem 0;
+    width: 20%;
+    padding: 4vh 0.7vw;
+    text-align: center;
+}
+
+/* SUBJECTS */
+
+.s-1 {
+    display: flex;
+    width: 62vw;
+    justify-content: space-between;
+}
+
+input[type=date] {
+    font-size: 1.2rem;
+    padding: 1.4vh 0.75vw;
+}
