@@ -11,6 +11,63 @@ body {
     padding: 0 6vw;
 }
 
+/* header */
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5vh 6vw 5vh;
+    background-color: #2C74B3;
+    color: #f9f9f9;
+    /* border-radius: 0 0 0.8rem 0.8rem; */
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+}
+
+.main-img {
+    width: 14%;
+    border-radius: 100%;
+}
+
+.main-img img {
+    width: 100%;
+}
+
+.main-name h1 {
+    font-size: 3.5em;
+}
+
+.f-p {
+    font-size: 2.6em;
+}
+
+/* header */
+
+/* HEADING */
+
+.heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.head-cont {
+    display: inline-block;
+    padding: 2vh 30vw 2vh 6.2vw;
+    /* border: 2px solid #252525; */
+    /* border-radius: 0.8rem; */
+    margin: 15vh 0 8vh;
+}
+
+.head-cont h1 {
+    font-size: 2em;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-bottom: 2vh;
+}
+
+/* HEADING */
+
 .personal-details {
     display: flex;
     /* flex-direction: column; */
@@ -21,7 +78,7 @@ body {
 .pd-head {
     font-size: 1.6em;
     color: whitesmoke;
-    background-color: #1479D7;
+    background-color: #2C74B3;
     border-radius: 1rem 0 0 1rem;
     width: 20%;
     padding: 4vh 0.7vw;
@@ -31,7 +88,7 @@ body {
 .pd-details {
     width: 80%;
     border-radius:0 1rem 1rem 0;
-    border: 3px solid #1479D7;
+    border: 3px solid #2C74B3;
     padding: 4vh 4vw 5vh 2.5vw;
 }
 
@@ -56,7 +113,7 @@ label {
 
 input {
     font-size: 1.2em;
-    border: 0.1rem solid #1479D7;
+    border: 0.1rem solid #2C74B3;
     border-radius: 0.375rem;
     margin-top: 1.4vh;
     font-family: 'Outfit', sans-serif;
@@ -76,7 +133,7 @@ input::placeholder {
 
 select {
     background: none;
-    border: 2px solid #1479D7;
+    border: 2px solid #2C74B3;
     padding: 1.5vh 0.75vw;
     font-size: 1.2em;
     margin-top: 1.4vh;
@@ -94,7 +151,7 @@ option {
 .ac-details {
     width: 80%;
     border-radius:1rem 0 0 1rem;
-    border: 3px solid #1479D7;
+    border: 3px solid #2C74B3;
     padding: 4vh 4vw 5vh 2.5vw;
     display: flex;
     justify-content: space-between;
@@ -114,7 +171,7 @@ option {
 .ac-head {
     font-size: 1.6em;
     color: whitesmoke;
-    background-color: #1479D7;
+    background-color: #2C74B3;
     border-radius: 0 1rem 1rem 0;
     width: 20%;
     padding: 4vh 0.7vw;
@@ -133,3 +190,42 @@ input[type=date] {
     font-size: 1.2rem;
     padding: 1.4vh 0.75vw;
 }
+
+/* submission */
+
+.sub {
+    margin: 8vh 0 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input[type=submit] {
+    background-color: #2C74B3;
+    color: #f9f9f9;
+    margin: 0 2vw;
+    padding: 1vh 2vw;
+    transition: 0.3s ease-in;
+}
+
+input[type=submit]:hover {
+    background-color: #094070;
+    transition: 0.3s ease-out;
+    cursor: pointer;
+}
+
+/* submission */
+
+/* footer */
+
+footer {
+    height: 20vh;
+    background-color: #252525;
+    color: #f9f9f9;
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* footer */
