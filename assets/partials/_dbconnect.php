@@ -4,14 +4,6 @@
     $username = "root";
     $password = "";
     $database = "users";
-
-
     $conn = mysqli_connect($server, $username, $password, $database);
-    if ($conn) {
-        echo "success";
-    }
-    else {
-        die ("not success". mysqli_connect_error());
-    }
 
 ?>
