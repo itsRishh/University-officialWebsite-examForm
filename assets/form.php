@@ -1,5 +1,54 @@
 <?php
-    include 'partials/_dbconnect.php';
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        include 'partials/_dbconnect.php';
+        $name = $_POST["name"];
+        $fname = $_POST["fname"];
+        $padd = $_POST["padd"];
+        $pno = $_POST["pno"];
+        $ladd = $_POST["ladd"];
+        $lno = $_POST["lno"];
+        $prog = $_POST["prog"];
+        $sem = $_POST["sem"];
+        $rollno = $_POST["rollno"];
+        $year = $_POST["yr"];
+        $semf = $_POST["semf"];
+        $eno = $_POST["eno"];
+        $month = $_POST["month"];
+        $rdt = $_POST["rdt"];
+        $s1 = $_POST["s-1"]; /* exam subjects */
+        $s2 = $_POST["s-2"];
+        $s3 = $_POST["s-3"];
+        $s4 = $_POST["s-4"];
+        $s5 = $_POST["s-5"];
+        $s6 = $_POST["s-6"];
+        $s7 = $_POST["s-7"];
+        $s8 = $_POST["s-8"];
+        $d1 = $_POST["d-1"]; /* exam dates */
+        $d2 = $_POST["d-2"];
+        $d3 = $_POST["d-3"];
+        $d4 = $_POST["d-4"];
+        $d5 = $_POST["d-5"];
+        $d6 = $_POST["d-6"];
+        $d7 = $_POST["d-7"];
+        $d8 = $_POST["d-8"];
+
+
+        $sql = "INSERT INTO `stud_info12` (`Name`, `Father's name`, `Parmanent address`, `Phone No`, `Local address`, `L Phone No`, `Programme`, `Semester`, `Roll No`, `Enrollment No`, `Year`, `Month`, `Repeat/Semester Fees`, `Receipt No/Date`, `Subject 1`, `Date 1`, `Subject 2`, `Date 2`, `Subject 3`, `Date 3`, `Subject 4`, `Date 4`, `Subject 5`, `Date 5`, `Subject 6`, `Date 6`, `Subject 7`, `Date 7`, `Subject 8`, `Date 8`) VALUES ('$name', '$fname', '$padd', '$pno', '$ladd', '$lno', '$prog', '$sem', '$rollno', '$eno', '$year', '$month', '$semf', '$rdt', '$s1', '$d1', '$s2', '$d2', '$s3', '$d3', '$s4', '$d4', '$s5', '$d5', '$s6', '$d6', '$s7', '$d7', '$s8', '$d8');";
+
+        $result = mysqli_query($conn, $sql);
+
+        if ($result) {
+            session_start();
+            $_SESSION['name'] = $name;
+            $_SESSION['rollno'] = $rollno;
+            $_SESSION['eno'] = $eno;
+            header("location: print.php");
+        }
+        else {
+            echo "nahi hua bhai";
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +57,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form</title>
+    <title>SDSF Examination Form</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="styles.css">
@@ -38,7 +87,6 @@
             <img src="images/davv.png" alt="institution-logo">
         </div>
     </header>
-    <?php require 'partials/_nav.php' ?>
 
     <section class="heading">
         <div class="head-cont">
@@ -50,7 +98,7 @@
 
     <div class="root">
         <section class="main-form">
-            <form action="/assets/form.php" method="post">
+            <form action="/examForm/form.php" method="post">
                 <div class="personal-details">
                     <div class="pd-head">
                         <p>Personal Details</p>
@@ -59,36 +107,36 @@
                         <div class="u-name al">
                             <div class="f-cont">
                                 <label for="name">Name</label>
-                                <input style="width: 29vw;" type="text" placeholder="Student full name">
+                                <input name="name" style="width: 29vw;" type="text" placeholder="Student full name">
                             </div>
 
                             <div class="f-cont">
                                 <label for="fname">Father's name</label>
-                                <input style="width: 29vw;" type="text" placeholder="Father's full name">
+                                <input name="fname" style="width: 29vw;" type="text" placeholder="Father's full name">
                             </div>
                         </div>
 
                         <div class="u-p-ad al">
                             <div class="f-cont">
                                 <label for="p-add">Permanent address</label>
-                                <input style="width: 41vw;" type="text" placeholder="If you are an outsider then enter your native address">
+                                <input name="padd" style="width: 41vw;" type="text" placeholder="If you are an outsider then enter your native address">
                             </div>
                             <i style="margin: 58px 5px 0 5px;" class="fa-solid fa-right-long fa-xs"></i>
                             <div class="f-cont">
                                 <label for="p-mob">Phone No</label>
-                                <input type="number" placeholder="999-999-9999">
+                                <input name="pno" type="number" placeholder="999-999-9999">
                             </div>
                         </div>
 
                         <div class="u-l-ad al">
                             <div class="f-cont">
                                 <label for="l-add">Local address</label>
-                                <input style="width: 41vw;" type="text" placeholder="Enter you current residential address"> 
+                                <input name="ladd" style="width: 41vw;" type="text" placeholder="Enter you current residential address"> 
                             </div>
                             <i style="margin: 58px 5px 0 5px;" class="fa-solid fa-right-long fa-xs"></i>
                             <div class="f-cont">
                                 <label for="l-mob">Phone No</label>
-                                <input type="number" placeholder="999-999-9999">
+                                <input name="lno" type="number" placeholder="999-999-9999">
                             </div>
                         </div>
                     </div>
@@ -99,7 +147,7 @@
                         <div class="col-1">
                             <div style="margin-bottom: 5vh;"  class="f-cont">
                                 <label for="name">Programme</label>
-                                <select name="programmes" id="programmes">
+                                <select style="width: 40vw;" name="prog" id="programmes">
                                     <option value="" selected disabled>Select your programme</option>
                                     <option value="mtech">M.Tech (dual degree) Artificial Intelligence and Data Science</option>
                                     <option value="mca">M.Tech 2 years</option>
@@ -112,34 +160,34 @@
                                 <div class="dc">
                                     <div class="f-cont">
                                         <label for="fname">Roll No</label>
-                                        <input type="text" placeholder="DS6A2132">
+                                        <input name="rollno" type="text" placeholder="DS6A2132">
                                     </div>
                                     
                                     <div style="margin: 5vh 0;" class="f-cont">
                                         <label for="p-mob">Year</label>
-                                        <input type="text" placeholder="ex: 2nd year">
+                                        <input name="yr" type="text" placeholder="ex: 2nd year">
                                     </div>
     
                                     <div class="f-cont">
                                         <label for="l-mob">Repeat/Semester Fees</label>
-                                        <input type="number" placeholder="Rs 35,000">
+                                        <input name="semf" type="number" placeholder="Rs 35,000">
                                     </div>
                                 </div>
 
                                 <div class="dc">
                                     <div class="f-cont">
                                         <label for="p-add">Enrollment No</label>
-                                        <input type="text" placeholder="DE2102056">
+                                        <input name="eno" type="text" placeholder="DE2102056">
                                     </div>
                 
                                     <div style="margin: 5vh 0;" class="f-cont">
                                         <label for="l-add">Month</label>
-                                        <input type="text" placeholder="Examination month"> 
+                                        <input name="month" type="text" placeholder="Examination month"> 
                                     </div>
         
                                     <div class="f-cont">
                                         <label for="l-mob">Receipt No/Date</label>
-                                        <input type="date" placeholder="20-05-2023">
+                                        <input name="rdt" type="date" placeholder="20-05-2023">
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +196,7 @@
                             <div class="col-2-in">
                                 <div class="f-cont">
                                     <label for="name">Semester</label>
-                                    <input type="text" placeholder="1st Semester">
+                                    <input name="sem" type="text" placeholder="1st Semester">
                                 </div>
         
                                 <div style="margin: 5vh 0;" class="f-cont">
@@ -169,44 +217,44 @@
                     </div>
                     <div class="pd-details">
                         <div class="s-cont">
-                            <div class="s-1">
+                            <div style="margin-bottom: 3vh;" class="s-1">
                                 <div class="f-cont">
                                     <label for="">Subjects</label>
-                                    <input style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                    <input name="s-1" style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
                                 </div>
                             
                                 <div class="f-cont">
                                     <label for="">Date of exam</label>
-                                    <input style="width: 19vw;" type="date">
+                                    <input name="d-1" style="width: 19vw;" type="date">
                                 </div>
                             </div>
-                            <div class="s-1">
-                                <input style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
-                                <input style="width: 19vw;" type="date">
+                            <div style="margin-bottom: 3vh;" class="s-1">
+                                <input name="s-2" style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input name="d-2" style="width: 19vw;" type="date">
                             </div>
-                            <div class="s-1">
-                                <input style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
-                                <input style="width: 19vw;" type="date">
+                            <div style="margin-bottom: 3vh;" class="s-1">
+                                <input name="s-3" style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input name="d-3" style="width: 19vw;" type="date">
                             </div>
-                            <div class="s-1">
-                                <input style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
-                                <input style="width: 19vw;" type="date">
+                            <div style="margin-bottom: 3vh;" class="s-1">
+                                <input name="s-4" style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input name="d-4" style="width: 19vw;" type="date">
                             </div>
-                            <div class="s-1">
-                                <input style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
-                                <input style="width: 19vw;" type="date">
+                            <div style="margin-bottom: 3vh;" class="s-1">
+                                <input name="s-5" style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input name="d-5" style="width: 19vw;" type="date">
                             </div>
-                            <div class="s-1">
-                                <input style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
-                                <input style="width: 19vw;" type="date">
+                            <div style="margin-bottom: 3vh;" class="s-1">
+                                <input name="s-6" style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input name="d-6" style="width: 19vw;" type="date">
                             </div>
-                            <div class="s-1">
-                                <input style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
-                                <input style="width: 19vw;" type="date">
+                            <div style="margin-bottom: 3vh;" class="s-1">
+                                <input name="s-7" style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input name="d-7" style="width: 19vw;" type="date">
                             </div>
-                            <div class="s-1">
-                                <input style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
-                                <input style="width: 19vw;" type="date">
+                            <div style="margin-bottom: 3vh;" class="s-1">
+                                <input name="s-8" style="width: 38vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input name="d-8" style="width: 19vw;" type="date">
                             </div>
                         </div>
                     </div>
@@ -214,7 +262,6 @@
 
                 <div class="sub">
                     <input type="submit" value="SUBMIT">
-                    <input type="submit" value="PRINT HALL TICKET">
                 </div>
             </form>
         </section>
