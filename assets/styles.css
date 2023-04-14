@@ -108,7 +108,7 @@ header {
 }
 
 label {
-    font-size: 1.3em;
+    font-size: 1em;
 }
 
 input {
@@ -126,6 +126,10 @@ input::placeholder {
     color: #BBBBBB;
     font-family: 'Outfit', sans-serif;
     font-weight: 300;
+}
+
+input:required {
+    border: 2px solid red;
 }
 
 
