@@ -13,7 +13,7 @@ body {
 
 /* header */
 
-header {
+.header-h {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -126,10 +126,6 @@ input::placeholder {
     color: #BBBBBB;
     font-family: 'Outfit', sans-serif;
     font-weight: 300;
-}
-
-input:required {
-    border: 2px solid red;
 }
 
 
@@ -306,3 +302,13 @@ footer {
     opacity: 100%;
 }
 /* print */
+
+.alert1 {
+    position: sticky;
+    top: 8vh;
+    /* left: 38vw; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}

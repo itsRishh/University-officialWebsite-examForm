@@ -1,8 +1,13 @@
 <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        include 'partials/_dbconnect.php';
-        include 'partials/_rpdbconnect.php';
+$showErr = false;
+$result = false;
+$feeErr = false;
+// $result = false;
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    include 'partials/_dbconnect.php';
+    include 'partials/_rpdbconnect.php';
         $name = $_POST["name"];
         $fname = $_POST["fname"];
         $padd = $_POST["padd"];
@@ -36,11 +41,36 @@
 
 
         $sql = "INSERT INTO `stud_info12` (`Name`, `Father's name`, `Parmanent address`, `Phone No`, `Local address`, `L Phone No`, `Programme`, `Semester`, `Roll No`, `Enrollment No`, `Year`, `Month`, `Repeat/Semester Fees`, `Receipt No/Date`, `Subject 1`, `Date 1`, `Subject 2`, `Date 2`, `Subject 3`, `Date 3`, `Subject 4`, `Date 4`, `Subject 5`, `Date 5`, `Subject 6`, `Date 6`, `Subject 7`, `Date 7`, `Subject 8`, `Date 8`) VALUES ('$name', '$fname', '$padd', '$pno', '$ladd', '$lno', '$prog', '$sem', '$rollno', '$eno', '$year', '$month', '$semf', '$rdt', '$s1', '$d1', '$s2', '$d2', '$s3', '$d3', '$s4', '$d4', '$s5', '$d5', '$s6', '$d6', '$s7', '$d7', '$s8', '$d8');";
+        
+        
+        // --- validation of multiple entries --- [check!]
+        
+        $csql = "SELECT * FROM `stud_info12` WHERE `Name` = '$name' AND `Roll No` = '$rollno';";
+        $csql_res = mysqli_query($conn, $csql);
+        $count = mysqli_num_rows($csql_res); // 0
+        
+        // --- validation of multiple entries ---
 
-        $sql2 = "INSERT INTO `ttable` (`sno`, `name`, `fathers name`, `Parmanent address`, `phone no`, `local address`, `l phone no`) VALUES (NULL, '$name', '$fname', '$padd', '$pno', '$ladd', '$lno');";
 
-        $result = mysqli_query($conn, $sql);
-        mysqli_query($rconn, $sql2);
+        
+        // --- validation of fees ---
+
+        $fsql = "SELECT * FROM `fee_details` WHERE `Name` = '$name' AND `Roll No` = '$rollno' AND `Receipt No` = '$rdt';";
+        $fsql_res = mysqli_query($rconn, $fsql);
+        $fcount = mysqli_num_rows($fsql_res); // 1
+
+        // --- validation of fees ---
+
+        // if all conditions satisfies ... then 
+        if ($count == 0 && $fcount == 1) {
+            $result = mysqli_query($conn, $sql);
+        }
+        elseif ($count != 0) {
+            $showErr = true;
+        }
+        elseif ($fcount != 1) {
+            $feeErr = true;
+        }
 
         if ($result) {
             session_start();
@@ -48,9 +78,6 @@
             $_SESSION['rollno'] = $rollno;
             $_SESSION['eno'] = $eno;
             header("location: print.php");
-        }
-        else {
-            echo "nahi hua bhai";
         }
     }
 ?>
@@ -75,10 +102,38 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.rtl.min.css" integrity="sha384-T5m5WERuXcjgzF8DAb7tRkByEZQGcpraRTinjpywg37AO96WoYN9+hrhDVoM6CaT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    <header>
+    <?php 
+        // entry exists!
+        if ($showErr) {
+            echo '<div class="alert1">
+                <div style="margin-bottom: 0; box-shadow: #f1aeb5 0px 0px 5px 0px;
+                border-radius: 0.3rem;" class="alert alert-warning alert-danger fade show" role="alert">
+                    <strong>Fatal error!</strong> Below entry already exists!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>';
+        }
+    ?>
+    <?php 
+        // entry exists!
+        if ($feeErr) {
+            echo '<div class="alert1">
+                <div style="margin-bottom: 0; box-shadow: #f1aeb5 0px 0px 5px 0px;
+                border-radius: 0.3rem;" class="alert alert-warning alert-danger fade show" role="alert">
+                    <strong>FEES error!</strong> Student has not paid the fees!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>';
+        }
+    ?>
+    <header class="header-h">
         <div class="main-img">
             <img style="border-radius: 100%;" src="images/sdsfjpeg2.jpeg" alt="institution-logo">
         </div>
@@ -110,13 +165,13 @@
                     <div class="pd-details">
                         <div class="u-name al">
                             <div class="f-cont">
-                                <label for="name">Name</label>
-                                <input name="name" style="width: 29vw;" type="text" placeholder="Student full name">
+                                <label for="name">Name <span style="color:red;">*</span></label>
+                                <input name="name" style="width: 29vw;" type="text" placeholder="Student full name" required>
                             </div>
 
                             <div class="f-cont">
-                                <label for="fname">Father's name</label>
-                                <input name="fname" style="width: 29vw;" type="text" placeholder="Father's full name">
+                                <label for="fname">Father's name <span style="color:red;">*</span></label>
+                                <input name="fname" style="width: 29vw;" type="text" placeholder="Father's full name" required>
                             </div>
                         </div>
 
@@ -150,8 +205,8 @@
                     <div class="ac-details">
                         <div class="col-1">
                             <div style="margin-bottom: 5vh;"  class="f-cont">
-                                <label for="name">Programme</label>
-                                <select style="width: 40vw;" name="prog" id="programmes">
+                                <label for="name">Programme<span style="color:red;">*</span></label>
+                                <select style="width: 40vw;" name="prog" id="programmes" required>
                                     <option value="" selected disabled>Select your programme</option>
                                     <option value="mtech">M.Tech (dual degree) Artificial Intelligence and Data Science</option>
                                     <option value="mca">M.Tech 2 years</option>
@@ -163,8 +218,8 @@
                             <div class="col-1-in-2">
                                 <div class="dc">
                                     <div class="f-cont">
-                                        <label for="fname">Roll No</label>
-                                        <input name="rollno" type="text" placeholder="DS6A2132">
+                                        <label for="fname">Roll No <span style="color:red;">*</span></label>
+                                        <input name="rollno" type="text" placeholder="DS6A2132" required>
                                     </div>
                                     
                                     <div style="margin: 5vh 0;" class="f-cont">
@@ -173,15 +228,15 @@
                                     </div>
     
                                     <div class="f-cont">
-                                        <label for="l-mob">Repeat/Semester Fees</label>
-                                        <input name="semf" type="number" placeholder="Rs 35,000">
+                                        <label for="l-mob">Repeat/Semester Fees <span style="color:red;">*</span></label>
+                                        <input name="semf" type="number" placeholder="Rs 35,000" required>
                                     </div>
                                 </div>
 
                                 <div class="dc">
                                     <div class="f-cont">
-                                        <label for="p-add">Enrollment No</label>
-                                        <input name="eno" type="text" placeholder="DE2102056">
+                                        <label for="p-add">Enrollment No <span style="color:red;">*</span></label>
+                                        <input name="eno" type="text" placeholder="DE2102056" required>
                                     </div>
                 
                                     <div style="margin: 5vh 0;" class="f-cont">
@@ -196,11 +251,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="width: 20vw;" class="col-2">
+                        <div style="width: 20vw;" class="col-2s">
                             <div class="col-2-in">
                                 <div class="f-cont">
-                                    <label for="name">Semester</label>
-                                    <input name="sem" type="text" placeholder="ex: 1st Semester">
+                                    <label for="name">Semester <span style="color:red;">*</span></label>
+                                    <input name="sem" type="text" placeholder="ex: 1st Semester" required>
                                 </div>
         
                                 <div style="margin: 5vh 0;" class="f-cont">
@@ -223,54 +278,54 @@
                         <div class="s-cont">
                             <div style="margin-bottom: 3vh;" class="s-1">
                                 <div class="f-cont">
-                                    <label for="">Subject Code</label>
-                                    <input name="s-1" style="width: 12vw;" type="text" placeholder="DS6A202">
+                                    <label for="">Subject Code <span style="color:red;">*</span></label>
+                                    <input style="width: 12vw;" type="text" placeholder="DS6A202">
                                 </div>
 
                                 <div class="f-cont">
-                                    <label for="">Subjects</label>
+                                    <label for="">Subjects <span style="color:red;">*</span></label>
                                     <input name="s-1" style="width: 28vw;" type="text" placeholder="Mathematics">
                                 </div>
                             
                                 <div class="f-cont">
-                                    <label for="">Date of exam</label>
+                                    <label for="">Date of exam <span style="color:red;">*</span></label>
                                     <input name="d-1" style="width: 19vw;" type="date">
                                 </div>
                             </div>
                             <div style="margin-bottom: 3vh;" class="s-1">
-                                <input name="s-1" style="width: 12vw;" type="text" placeholder="DS6A202">
+                                <input style="width: 12vw;" type="text" placeholder="DS6A202">
                                 <input name="s-2" style="width: 28vw;" type="text" placeholder="Mathematics (DS6A202)">
                                 <input name="d-2" style="width: 19vw;" type="date">
                             </div>
                             <div style="margin-bottom: 3vh;" class="s-1">
-                                <input name="s-1" style="width: 12vw;" type="text" placeholder="DS6A202">
-                                <input name="s-2" style="width: 28vw;" type="text" placeholder="Mathematics (DS6A202)">
-                                <input name="d-2" style="width: 19vw;" type="date">
+                                <input style="width: 12vw;" type="text" placeholder="DS6A202">
+                                <input name="s-3" style="width: 28vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input name="d-3" style="width: 19vw;" type="date">
                             </div>
                             <div style="margin-bottom: 3vh;" class="s-1">
-                                <input name="s-1" style="width: 12vw;" type="text" placeholder="DS6A202">
-                                <input name="s-2" style="width: 28vw;" type="text" placeholder="Mathematics (DS6A202)">
-                                <input name="d-2" style="width: 19vw;" type="date">
+                                <input style="width: 12vw;" type="text" placeholder="DS6A202">
+                                <input name="s-4" style="width: 28vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input name="d-4" style="width: 19vw;" type="date">
                             </div>
                             <div style="margin-bottom: 3vh;" class="s-1">
-                                <input name="s-1" style="width: 12vw;" type="text" placeholder="DS6A202">
-                                <input name="s-2" style="width: 28vw;" type="text" placeholder="Mathematics (DS6A202)">
-                                <input name="d-2" style="width: 19vw;" type="date">
+                                <input style="width: 12vw;" type="text" placeholder="DS6A202">
+                                <input name="s-5" style="width: 28vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input name="d-5" style="width: 19vw;" type="date">
                             </div>
                             <div style="margin-bottom: 3vh;" class="s-1">
-                                <input name="s-1" style="width: 12vw;" type="text" placeholder="DS6A202">
-                                <input name="s-2" style="width: 28vw;" type="text" placeholder="Mathematics (DS6A202)">
-                                <input name="d-2" style="width: 19vw;" type="date">
+                                <input style="width: 12vw;" type="text" placeholder="DS6A202">
+                                <input name="s-6" style="width: 28vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input name="d-6" style="width: 19vw;" type="date">
                             </div>
                             <div style="margin-bottom: 3vh;" class="s-1">
-                                <input name="s-1" style="width: 12vw;" type="text" placeholder="DS6A202">
-                                <input name="s-2" style="width: 28vw;" type="text" placeholder="Mathematics (DS6A202)">
-                                <input name="d-2" style="width: 19vw;" type="date">
+                                <input style="width: 12vw;" type="text" placeholder="DS6A202">
+                                <input name="s-7" style="width: 28vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input name="d-7" style="width: 19vw;" type="date">
                             </div>
                             <div style="margin-bottom: 3vh;" class="s-1">
-                                <input name="s-1" style="width: 12vw;" type="text" placeholder="DS6A202">
-                                <input name="s-2" style="width: 28vw;" type="text" placeholder="Mathematics (DS6A202)">
-                                <input name="d-2" style="width: 19vw;" type="date">
+                                <input style="width: 12vw;" type="text" placeholder="DS6A202">
+                                <input name="s-8" style="width: 28vw;" type="text" placeholder="Mathematics (DS6A202)">
+                                <input name="d-8" style="width: 19vw;" type="date">
                             </div>
                             
                         </div>
@@ -283,9 +338,12 @@
             </form>
         </section>
     </div>
+    
     <footer>
         <p>Made by RISHABH JAISWAL</p>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

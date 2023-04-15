@@ -3,7 +3,7 @@
     $server = "localhost";
     $username = "root";
     $password = "";
-    $database = "test";
+    $database = "fee details";
     $rconn = mysqli_connect($server, $username, $password, $database);
 
 ?>

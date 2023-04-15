@@ -37,7 +37,7 @@ session_start();
             }
 
             /* header */
-            header {
+            .header-h {
                 padding: 2.5vh 6vw 0;
                 margin: 0 5vw !important;
                 color: #252525;
@@ -149,7 +149,7 @@ session_start();
     </style>
 </head>
 <body style="font-family: 'Outfit', sans-serif;"> 
-    <header>
+    <header class="header-h">
         <div class="main-img">
             <img style="border-radius: 100%;" src="images/sdsfjpeg2.jpeg" alt="institution-logo">
         </div>
